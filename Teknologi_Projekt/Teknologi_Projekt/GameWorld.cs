@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Teknologi_Projekt
 {
@@ -8,26 +9,37 @@ namespace Teknologi_Projekt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private List<GameObject> gameObjects = new List<GameObject>();
+
+        public static int Height { get; set; }
+        public static int Width { get; set; }
 
         public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.HardwareModeSwitch = false;
+            Window.IsBorderless = true;
+            _graphics.IsFullScreen = true;
+            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.PreferredBackBufferWidth = 1920;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            GameWorld.Height = _graphics.PreferredBackBufferHeight;
+            GameWorld.Width = _graphics.PreferredBackBufferWidth;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.LoadContent(Content);
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -35,7 +47,10 @@ namespace Teknologi_Projekt
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
@@ -44,7 +59,12 @@ namespace Teknologi_Projekt
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Draw(_spriteBatch);
+            }
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
