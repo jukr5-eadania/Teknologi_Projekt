@@ -14,11 +14,17 @@ namespace Teknologi_Projekt
         {
             UIM = uim;
             UIM.AddButton(new(100, 100)).OnClick += Action;
+            UIM.AddButton(new(100, 200)).OnClick += Action1;
         }
 
         public void Action(object sender, EventArgs e)
         {
             UIM.counter++;
+        }
+
+        public void Action1(object sender, EventArgs e)
+        {
+            UIM.counter--;
         }
     }
 }

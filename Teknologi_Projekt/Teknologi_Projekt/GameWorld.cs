@@ -34,7 +34,7 @@ namespace Teknologi_Projekt
         {
             GameWorld.Height = _graphics.PreferredBackBufferHeight;
             GameWorld.Width = _graphics.PreferredBackBufferWidth;
-            //gameObjects.Add(new Stonemill());
+            gameObjects.Add(new Stonemill());
             base.Initialize();
         }
 

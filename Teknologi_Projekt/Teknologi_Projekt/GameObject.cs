@@ -16,7 +16,7 @@ namespace Teknologi_Projekt
         public abstract void Update(GameTime gameTime);
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, color);
+            //spriteBatch.Draw(sprite, position, color);
         }
 
     }

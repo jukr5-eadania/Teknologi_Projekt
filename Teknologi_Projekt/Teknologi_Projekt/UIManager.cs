@@ -47,6 +47,7 @@ namespace Teknologi_Projekt
             }
 
             spriteBatch.DrawString(UIFont, "Time: " + FormatTime(timer), new Vector2(0, 0), Color.White);
+            spriteBatch.DrawString(UIFont, "Counter: " + counter, new Vector2(0, 15), Color.White);
             spriteBatch.DrawString(UIFont, "Stone: " + stone, new Vector2(0, 30), Color.White);
         }
 
