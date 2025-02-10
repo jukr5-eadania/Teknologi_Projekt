@@ -2,12 +2,16 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Teknologi_Projekt.Tiles
 {
-    internal class Mine : Tile
+    internal class Stonemill : Tile
     {
-        public Mine(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
+        public Stonemill(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
         }
 
