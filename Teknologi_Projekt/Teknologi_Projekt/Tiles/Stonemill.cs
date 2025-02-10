@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using System;
 using System.Threading;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Teknologi_Projekt.Tiles
 {
@@ -28,6 +23,7 @@ namespace Teknologi_Projekt.Tiles
 
         public void HireWorker()
         {
+            //if statement is in place of a button to hire/fire workers. (If is hiring, else is firing)
             if (hireWorker)
             {
                 if (worker >= 1)
