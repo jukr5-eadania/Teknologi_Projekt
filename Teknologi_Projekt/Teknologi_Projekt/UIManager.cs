@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct2D1;
+using System;
 using System.Collections.Generic;
 
 namespace Teknologi_Projekt
@@ -9,7 +9,7 @@ namespace Teknologi_Projekt
     internal class UIManager
     {
         private Texture2D buttonTexture;
-        private List<Button> buttons = new();
+        private static List<Button> buttons = new();
         private SpriteFont UIFont;
         private float timer;
         public static int stone;
@@ -21,9 +21,9 @@ namespace Teknologi_Projekt
             UIFont = content.Load<SpriteFont>("UIFont");
         }
 
-        public Button AddButton(Vector2 pos)
+        public Button AddButton(Vector2 position)
         {
-            Button b = new Button(buttonTexture, pos);
+            Button b = new Button(buttonTexture, position);
             buttons.Add(b);
 
             return b;
@@ -39,7 +39,7 @@ namespace Teknologi_Projekt
             }
         }
 
-        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach (var item in buttons)
             {

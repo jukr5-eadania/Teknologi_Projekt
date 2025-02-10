@@ -12,7 +12,8 @@ namespace Teknologi_Projekt
         private SpriteBatch _spriteBatch;
         private List<GameObject> gameObjects = new List<GameObject>();
 
-        private UIManager UIM;
+        private UIManager UIM = new();
+        private ButtonManager BM;
 
         public static int Height { get; set; }
         public static int Width { get; set; }
@@ -34,7 +35,6 @@ namespace Teknologi_Projekt
             GameWorld.Height = _graphics.PreferredBackBufferHeight;
             GameWorld.Width = _graphics.PreferredBackBufferWidth;
             //gameObjects.Add(new Stonemill());
-            UIM = new();
             base.Initialize();
         }
 
@@ -46,6 +46,7 @@ namespace Teknologi_Projekt
                 gameObject.LoadContent(Content);
             }
             UIM.LoadContent(Content);
+            BM = new ButtonManager(UIM);
         }
 
         protected override void Update(GameTime gameTime)

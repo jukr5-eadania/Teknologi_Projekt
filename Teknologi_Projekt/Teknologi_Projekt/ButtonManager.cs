@@ -8,10 +8,11 @@ namespace Teknologi_Projekt
 {
     internal class ButtonManager
     {
-        private UIManager UIM = new();
+        private UIManager UIM;
 
-        public ButtonManager()
+        public ButtonManager(UIManager uim)
         {
+            UIM = uim;
             UIM.AddButton(new(100, 100)).OnClick += Action;
         }
 
