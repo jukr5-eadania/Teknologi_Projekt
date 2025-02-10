@@ -17,7 +17,7 @@ namespace Teknologi_Projekt
 
         public void Action(object sender, EventArgs e)
         {
-
+            UIM.counter++;
         }
     }
 }

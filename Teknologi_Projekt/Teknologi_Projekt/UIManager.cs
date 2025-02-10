@@ -1,12 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct3D9;
-using System;
+using SharpDX.Direct2D1;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Teknologi_Projekt
 {
@@ -14,10 +10,15 @@ namespace Teknologi_Projekt
     {
         private Texture2D buttonTexture;
         private List<Button> buttons = new();
+        private SpriteFont UIFont;
+        private float timer;
+        public static int stone;
+        public int counter;
 
         public void LoadContent(ContentManager content)
         {
             buttonTexture = content.Load<Texture2D>("button_rectangle_depth_flat");
+            UIFont = content.Load<SpriteFont>("UIFont");
         }
 
         public Button AddButton(Vector2 pos)
@@ -30,18 +31,31 @@ namespace Teknologi_Projekt
 
         public void Update(GameTime gameTime)
         {
+            timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             foreach (var item in buttons)
             {
                 item.Update(gameTime);
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             foreach (var item in buttons)
             {
                 item.Draw(spriteBatch);
             }
+
+            spriteBatch.DrawString(UIFont, "Time: " + FormatTime(timer), new Vector2(0, 0), Color.White);
+            spriteBatch.DrawString(UIFont, "Stone: " + stone, new Vector2(0, 30), Color.White);
+        }
+
+        private string FormatTime(float totalSeconds)
+        {
+            int minutes = (int)totalSeconds / 60;
+            int seconds = (int)totalSeconds % 60;
+            int milliseconds = (int)((totalSeconds - (int)totalSeconds) * 1000);
+            return $"{minutes:D2}:{seconds:D2}:{milliseconds:D3}"; // MM:SS:MS
         }
     }
 }

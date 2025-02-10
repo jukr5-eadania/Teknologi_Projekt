@@ -11,9 +11,6 @@ namespace Teknologi_Projekt
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private List<GameObject> gameObjects = new List<GameObject>();
-        private float timer;
-        private SpriteFont UIFont;
-        public static int stone;
 
         private UIManager UIM;
 
@@ -36,7 +33,7 @@ namespace Teknologi_Projekt
         {
             GameWorld.Height = _graphics.PreferredBackBufferHeight;
             GameWorld.Width = _graphics.PreferredBackBufferWidth;
-            gameObjects.Add(new Stonemill());
+            //gameObjects.Add(new Stonemill());
             UIM = new();
             base.Initialize();
         }
@@ -44,7 +41,6 @@ namespace Teknologi_Projekt
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            UIFont = Content.Load<SpriteFont>("UIFont");
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.LoadContent(Content);
@@ -56,8 +52,6 @@ namespace Teknologi_Projekt
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             foreach (GameObject gameObject in gameObjects)
             {
@@ -77,21 +71,10 @@ namespace Teknologi_Projekt
                 gameObject.Draw(_spriteBatch);
             }
 
-            _spriteBatch.DrawString(UIFont, "Time: " + FormatTime(timer), new Vector2(0, 0), Color.White);
-            _spriteBatch.DrawString(UIFont, "Stone: " + stone, new Vector2(0, 30), Color.White);
-
             UIM.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        private string FormatTime(float totalSeconds)
-        {
-            int minutes = (int)totalSeconds / 60;
-            int seconds = (int)totalSeconds % 60;
-            int milliseconds = (int)((totalSeconds - (int)totalSeconds) * 1000);
-            return $"{minutes:D2}:{seconds:D2}:{milliseconds:D3}"; // MM:SS:MS
         }
     }
 }

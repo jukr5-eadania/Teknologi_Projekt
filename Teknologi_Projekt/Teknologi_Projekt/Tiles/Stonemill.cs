@@ -13,6 +13,7 @@ namespace Teknologi_Projekt.Tiles
 
         public override void LoadContent(ContentManager content)
         {
+
         }
 
         public override void Update(GameTime gameTime)
@@ -47,7 +48,7 @@ namespace Teknologi_Projekt.Tiles
             while (buildingActive)
             {
                 Thread.Sleep(1000);
-                GameWorld.stone++;
+                UIManager.stone++;
                 Thread.Sleep(1000);
             }
         }
