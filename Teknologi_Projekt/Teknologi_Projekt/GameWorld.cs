@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using Teknologi_Projekt.Tiles;
 
 namespace Teknologi_Projekt
 {
@@ -11,6 +12,8 @@ namespace Teknologi_Projekt
         private SpriteBatch _spriteBatch;
         private List<GameObject> gameObjects = new List<GameObject>();
         private float timer;
+        private SpriteFont UIFont;
+        public static int stone;
 
         public static int Height { get; set; }
         public static int Width { get; set; }
@@ -31,12 +34,14 @@ namespace Teknologi_Projekt
         {
             GameWorld.Height = _graphics.PreferredBackBufferHeight;
             GameWorld.Width = _graphics.PreferredBackBufferWidth;
+            gameObjects.Add(new Stonemill());
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            UIFont = Content.Load<SpriteFont>("UIFont");
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.LoadContent(Content);
@@ -49,7 +54,6 @@ namespace Teknologi_Projekt
                 Exit();
 
             timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
 
             foreach (GameObject gameObject in gameObjects)
             {
@@ -70,6 +74,7 @@ namespace Teknologi_Projekt
             }
 
             _spriteBatch.DrawString(UIFont, "Time: " + FormatTime(timer), new Vector2(0, 0), Color.White);
+            _spriteBatch.DrawString(UIFont, "Stone: " + stone, new Vector2(0, 30), Color.White);
 
             _spriteBatch.End();
 

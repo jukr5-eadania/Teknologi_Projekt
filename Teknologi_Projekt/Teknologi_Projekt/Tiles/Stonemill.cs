@@ -12,21 +12,18 @@ namespace Teknologi_Projekt.Tiles
     internal class Stonemill : GameObject
     {
         private int worker = 3;
-        private static bool buildingActive;
+        private static bool buildingActive = true;
         private bool hireWorker;
-        private static int stone;
-        Thread mining = new Thread(Mining);
 
 
         public override void LoadContent(ContentManager content)
         {
-            throw new NotImplementedException();
         }
 
         public override void Update(GameTime gameTime)
         {
-            mining.IsBackground = true;
             hireWorker = true;
+            HireWorker();
         }
 
         public void HireWorker()
@@ -35,9 +32,11 @@ namespace Teknologi_Projekt.Tiles
             {
                 if (worker >= 1)
                 {
-                    worker--;
+                    Thread mining = new Thread(Mining);
+                    mining.IsBackground = true;
                     buildingActive = true;
                     mining.Start();
+                    worker--;
                 }
             }
             else
@@ -52,7 +51,7 @@ namespace Teknologi_Projekt.Tiles
             while (buildingActive)
             {
                 Thread.Sleep(1000);
-                stone++;
+                GameWorld.stone++;
                 Thread.Sleep(1000);
             }
         }
