@@ -11,6 +11,8 @@ namespace Teknologi_Projekt
         private SpriteBatch _spriteBatch;
         private List<GameObject> gameObjects = new List<GameObject>();
 
+        private UIManager UIM;
+
         public static int Height { get; set; }
         public static int Width { get; set; }
 
@@ -30,7 +32,7 @@ namespace Teknologi_Projekt
         {
             GameWorld.Height = _graphics.PreferredBackBufferHeight;
             GameWorld.Width = _graphics.PreferredBackBufferWidth;
-
+            UIM = new();
             base.Initialize();
         }
 
@@ -41,6 +43,7 @@ namespace Teknologi_Projekt
             {
                 gameObject.LoadContent(Content);
             }
+            UIM.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -52,7 +55,7 @@ namespace Teknologi_Projekt
             {
                 gameObject.Update(gameTime);
             }
-
+            UIM.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -65,6 +68,7 @@ namespace Teknologi_Projekt
             {
                 gameObject.Draw(_spriteBatch);
             }
+            UIM.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);
