@@ -10,6 +10,7 @@ namespace Teknologi_Projekt
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private List<GameObject> gameObjects = new List<GameObject>();
+        private float timer;
 
         public static int Height { get; set; }
         public static int Width { get; set; }
@@ -47,6 +48,9 @@ namespace Teknologi_Projekt
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Update(gameTime);
@@ -64,9 +68,20 @@ namespace Teknologi_Projekt
             {
                 gameObject.Draw(_spriteBatch);
             }
+
+            _spriteBatch.DrawString(UIFont, "Time: " + FormatTime(timer), new Vector2(0, 0), Color.White);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private string FormatTime(float totalSeconds)
+        {
+            int minutes = (int)totalSeconds / 60;
+            int seconds = (int)totalSeconds % 60;
+            int milliseconds = (int)((totalSeconds - (int)totalSeconds) * 1000);
+            return $"{minutes:D2}:{seconds:D2}:{milliseconds:D3}"; // MM:SS:MS
         }
     }
 }
