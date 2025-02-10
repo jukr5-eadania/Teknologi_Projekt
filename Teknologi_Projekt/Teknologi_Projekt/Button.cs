@@ -14,6 +14,11 @@ namespace Teknologi_Projekt
     {
         private MouseState lastMouseState;
 
+        public Button(Texture2D t, Vector2 p)
+        {
+
+        }
+
         public override void LoadContent(ContentManager content)
         {
             position = new Vector2(0, 0);
@@ -31,7 +36,7 @@ namespace Teknologi_Projekt
                 color = Color.DarkGray;
                 if (ms.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Released)
                 {
-
+                    Click();
                 }
             }
             else
@@ -40,6 +45,13 @@ namespace Teknologi_Projekt
             }
 
             lastMouseState = ms;
+        }
+
+        public event EventHandler OnClick;
+
+        private void Click()
+        {
+            OnClick?.Invoke(this, EventArgs.Empty);
         }
     }
 }
