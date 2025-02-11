@@ -19,6 +19,9 @@ namespace Teknologi_Projekt
         public static Vector2 cursorPosition = new Vector2(2, 0);
         private float cursorCooldown;
 
+        private UIManager UIM = new();
+        private ButtonManager BM;
+
         public static int Height { get; set; }
         public static int Width { get; set; }
 
@@ -43,6 +46,7 @@ namespace Teknologi_Projekt
         {
             GameWorld.Height = _graphics.PreferredBackBufferHeight;
             GameWorld.Width = _graphics.PreferredBackBufferWidth;
+            gameObjects.Add(new Stonemill());
             base.Initialize();
 
         }
@@ -71,6 +75,8 @@ namespace Teknologi_Projekt
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
 
+            UIM.LoadContent(Content);
+            BM = new ButtonManager(UIM);
         }
 
         protected override void Update(GameTime gameTime)
@@ -87,6 +93,7 @@ namespace Teknologi_Projekt
                 tile.Update(gameTime);
             }
 
+            UIM.Update(gameTime);
             base.Update(gameTime);
 
 
@@ -173,6 +180,8 @@ namespace Teknologi_Projekt
             {
                 tile.Draw(_spriteBatch);
             }
+
+            UIM.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

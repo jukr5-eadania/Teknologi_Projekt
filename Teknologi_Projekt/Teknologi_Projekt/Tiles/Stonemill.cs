@@ -1,28 +1,56 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Teknologi_Projekt.Tiles
 {
-    internal class Stonemill : Tile
+    internal class Stonemill : GameObject
     {
-        public Stonemill(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
-        {
-        }
+        private int worker = 3;
+        private static bool buildingActive = true;
+        private bool hireWorker;
+
 
         public override void LoadContent(ContentManager content)
         {
-            throw new NotImplementedException();
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            hireWorker = true;
+            HireWorker();
+        }
+
+        public void HireWorker()
+        {
+            //if statement is in place of a button to hire/fire workers. (If is hiring, else is firing)
+            if (hireWorker)
+            {
+                if (worker >= 1)
+                {
+                    Thread mining = new Thread(Mining);
+                    mining.IsBackground = true;
+                    buildingActive = true;
+                    mining.Start();
+                    worker--;
+                }
+            }
+            else
+            {
+                worker++;
+                buildingActive = false;
+            }
+        }
+
+        private static void Mining()
+        {
+            while (buildingActive)
+            {
+                Thread.Sleep(1000);
+                UIManager.stone++;
+                Thread.Sleep(1000);
+            }
         }
     }
 }
