@@ -7,8 +7,9 @@ namespace Teknologi_Projekt.Tiles
     internal class Stonemill : GameObject
     {
         private int worker = 3;
-        private static bool buildingActive = true;
-        private bool hireWorker;
+        private int capacity = 3;
+        private Semaphore sCapacity = new Semaphore(0, 3);
+        public Thread mining;
 
         public override void LoadContent(ContentManager content)
         {
@@ -17,38 +18,37 @@ namespace Teknologi_Projekt.Tiles
 
         public override void Update(GameTime gameTime)
         {
-            hireWorker = true;
-            HireWorker();
+
         }
 
         public void HireWorker()
         {
-            //if statement is in place of a button to hire/fire workers. (If is hiring, else is firing)
-            if (hireWorker)
+            if (worker >= 1 && capacity <= 3)
             {
-                if (worker >= 1)
-                {
-                    Thread mining = new Thread(Mining);
-                    mining.IsBackground = true;
-                    buildingActive = true;
-                    mining.Start();
-                    worker--;
-                }
-            }
-            else
-            {
-                worker++;
-                buildingActive = false;
+                capacity--;
+                sCapacity.Release();
+                mining = new(Mining);
+                mining.IsBackground = true;
+                mining.Start();
+                worker--;
             }
         }
 
-        private static void Mining()
+        public void FireWorker()
         {
-            while (buildingActive)
+            capacity++;
+            worker++;
+        }
+
+        private void Mining()
+        {
+            while (capacity >= 0)
             {
+                sCapacity.WaitOne();
                 Thread.Sleep(1000);
                 UIManager.stone++;
                 Thread.Sleep(1000);
+                sCapacity.Release();
             }
         }
     }

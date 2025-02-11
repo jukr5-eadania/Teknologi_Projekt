@@ -14,6 +14,7 @@ namespace Teknologi_Projekt
 
         private UIManager UIM = new();
         private ButtonManager BM;
+        private Tiles.Stonemill SM = new();
 
         public static int Height { get; set; }
         public static int Width { get; set; }
@@ -34,7 +35,7 @@ namespace Teknologi_Projekt
         {
             GameWorld.Height = _graphics.PreferredBackBufferHeight;
             GameWorld.Width = _graphics.PreferredBackBufferWidth;
-            gameObjects.Add(new Stonemill());
+            gameObjects.Add(SM);
             base.Initialize();
         }
 
@@ -46,7 +47,7 @@ namespace Teknologi_Projekt
                 gameObject.LoadContent(Content);
             }
             UIM.LoadContent(Content);
-            BM = new ButtonManager(UIM);
+            BM = new ButtonManager(UIM, SM);
         }
 
         protected override void Update(GameTime gameTime)
