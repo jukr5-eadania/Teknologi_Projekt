@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Teknologi_Projekt.Tiles
 {
-    internal class Stonemill : GameObject
+    internal class Stonemill : Tile
     {
         private int worker = 3;
         private int capacity = 3;
