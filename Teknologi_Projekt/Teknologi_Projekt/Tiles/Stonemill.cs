@@ -26,7 +26,7 @@ namespace Teknologi_Projekt.Tiles
         }
         public Stonemill(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
-
+            source = new(1 * tileSize, 1 * tileSize, tileSize, tileSize);
         }
 
         public void HireWorker()
