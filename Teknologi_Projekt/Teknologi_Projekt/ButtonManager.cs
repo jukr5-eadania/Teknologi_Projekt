@@ -11,8 +11,8 @@ namespace Teknologi_Projekt
         {
             UIM = uim;
             SM = sm;
-            UIM.AddButton(new(100, 100)).OnClick += HireWorkerAction;
-            UIM.AddButton(new(100, 300)).OnClick += FireWorkerAction;
+            UIM.AddButton(new(1500, 100)).OnClick += HireWorkerAction;
+            UIM.AddButton(new(1500, 300)).OnClick += FireWorkerAction;
         }
 
         public void HireWorkerAction(object sender, EventArgs e)
