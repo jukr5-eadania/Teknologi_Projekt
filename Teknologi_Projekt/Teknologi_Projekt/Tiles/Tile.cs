@@ -10,11 +10,12 @@ namespace Teknologi_Projekt.Tiles
         protected Texture2D textureAtlas;
         protected Rectangle destinationRectangle;
         protected Rectangle source;
+        protected int tileSize = 128;
 
         protected Tile(Texture2D textureAtlas, int x, int y)
         {
             this.textureAtlas = textureAtlas;
-            this.destinationRectangle = new Rectangle(x * 256, y * 256, 256, 256);
+            this.destinationRectangle = new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize);
 
         }
         public override void LoadContent(ContentManager content)

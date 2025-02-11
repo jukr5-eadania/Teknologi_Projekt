@@ -15,9 +15,13 @@ namespace Teknologi_Projekt
         private SpriteBatch _spriteBatch;
         private List<GameObject> gameObjects = new List<GameObject>();
         private Tile[,] tileArray = new Tile[7, 7];
-        public float scale = 0.75f;
+        public float scale = 1f;
         public static Vector2 cursorPosition = new Vector2(2, 0);
         private float cursorCooldown;
+
+        private UIManager UIM = new();
+        private ButtonManager BM;
+        private Tiles.Stonemill SM;
 
         public static int Height { get; set; }
         public static int Width { get; set; }
@@ -31,10 +35,10 @@ namespace Teknologi_Projekt
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.HardwareModeSwitch = false;
-            Window.IsBorderless = true;
-            _graphics.IsFullScreen = true;
-            _graphics.PreferredBackBufferHeight = 1080;
-            _graphics.PreferredBackBufferWidth = 1920;
+            Window.IsBorderless = false;
+            _graphics.IsFullScreen = false;
+            _graphics.PreferredBackBufferHeight = 896;
+            _graphics.PreferredBackBufferWidth = 1500;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -44,7 +48,6 @@ namespace Teknologi_Projekt
             GameWorld.Height = _graphics.PreferredBackBufferHeight;
             GameWorld.Width = _graphics.PreferredBackBufferWidth;
             base.Initialize();
-
         }
 
         protected override void LoadContent()
@@ -69,8 +72,11 @@ namespace Teknologi_Projekt
             tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
+            tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4);
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
 
+            UIM.LoadContent(Content);
+            BM = new ButtonManager(UIM, SM);
         }
 
         protected override void Update(GameTime gameTime)
@@ -87,6 +93,7 @@ namespace Teknologi_Projekt
                 tile.Update(gameTime);
             }
 
+            UIM.Update(gameTime);
             base.Update(gameTime);
 
 
@@ -169,6 +176,8 @@ namespace Teknologi_Projekt
             {
                 gameObject.Draw(_spriteBatch);
             }
+
+            UIM.Draw(_spriteBatch);
             foreach (Tile tile in tileArray)
             {
                 tile.Draw(_spriteBatch);
