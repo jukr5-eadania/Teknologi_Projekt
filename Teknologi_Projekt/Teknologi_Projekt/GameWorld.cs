@@ -35,10 +35,10 @@ namespace Teknologi_Projekt
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.HardwareModeSwitch = false;
-            Window.IsBorderless = true;
-            _graphics.IsFullScreen = true;
-            _graphics.PreferredBackBufferHeight = 1080;
-            _graphics.PreferredBackBufferWidth = 1920;
+            Window.IsBorderless = false;
+            _graphics.IsFullScreen = false;
+            _graphics.PreferredBackBufferHeight = 896;
+            _graphics.PreferredBackBufferWidth = 1500;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
