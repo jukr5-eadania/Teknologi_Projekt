@@ -1,11 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Teknologi_Projekt.Tiles
 {
-    internal class Castle : GameObject
+    internal class Castle : Tile
     {
+        public Castle(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
+        {
+            source = new(0 * 256, 1 * 256, 256, 256);
+        }
+
         public override void LoadContent(ContentManager content)
         {
             throw new NotImplementedException();
@@ -13,7 +19,6 @@ namespace Teknologi_Projekt.Tiles
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
         }
     }
 }

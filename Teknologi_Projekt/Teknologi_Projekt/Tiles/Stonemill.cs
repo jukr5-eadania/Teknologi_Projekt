@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -24,9 +26,10 @@ namespace Teknologi_Projekt.Tiles
         }
 
         public void HireWorker()
-        {
+    {
+        public Stonemill(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
             if (worker >= 1 && capacity <= 3)
-            {
+        {
                 capacity--;
                 sCapacity.Release();
                 var cts = new CancellationTokenSource();
@@ -36,7 +39,7 @@ namespace Teknologi_Projekt.Tiles
                 miningThreads.Add(miningThread);
                 cancellationTokens.Add(cts);
                 worker--;
-            }
+        }
         }
 
         public void FireWorker()
@@ -54,7 +57,7 @@ namespace Teknologi_Projekt.Tiles
         private void Mining(CancellationToken token)
         {
             while (!token.IsCancellationRequested && capacity >= 0)
-            {
+        {
                 sCapacity.WaitOne();
                 Thread.Sleep(1000);
                 UIManager.stone++;
