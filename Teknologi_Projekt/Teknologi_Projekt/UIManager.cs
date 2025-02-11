@@ -15,6 +15,8 @@ namespace Teknologi_Projekt
         public static int stone;
         public int counter;
 
+        public int workerCounter;
+
         public void LoadContent(ContentManager content)
         {
             buttonTexture = content.Load<Texture2D>("button_rectangle_depth_flat");
@@ -49,6 +51,7 @@ namespace Teknologi_Projekt
             spriteBatch.DrawString(UIFont, "Time: " + FormatTime(timer), new Vector2(0, 0), Color.White);
             spriteBatch.DrawString(UIFont, "Counter: " + counter, new Vector2(0, 15), Color.White);
             spriteBatch.DrawString(UIFont, "Stone: " + stone, new Vector2(0, 30), Color.White);
+            spriteBatch.DrawString(UIFont, "Workers: " + workerCounter, new Vector2(0, 45), Color.White);
         }
 
         private string FormatTime(float totalSeconds)

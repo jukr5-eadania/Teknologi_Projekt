@@ -15,9 +15,9 @@ namespace Teknologi_Projekt.Tiles
     /// for the player to assigne jobs in the game
     /// </summary>
     internal class WorkerHouse : Tile
-    {
-        private int workerCounter = 0;
-
+    {       
+        private UIManager UIM;
+                
         public WorkerHouse(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
 
@@ -30,13 +30,18 @@ namespace Teknologi_Projekt.Tiles
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void AddWorkers()
         {
-            workerCounter += 2;
+            
+            UIM.workerCounter += 2;
         }
 
+        public void AssignWorker()
+        {
+            UIM.workerCounter--;
+        }
     }
 }
