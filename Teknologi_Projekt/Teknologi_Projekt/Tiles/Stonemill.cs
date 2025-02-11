@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Teknologi_Projekt.Tiles
@@ -9,7 +10,8 @@ namespace Teknologi_Projekt.Tiles
         private int worker = 3;
         private int capacity = 3;
         private Semaphore sCapacity = new Semaphore(0, 3);
-        public Thread mining;
+        private List<Thread> miningThreads = new List<Thread>();
+        private List<CancellationTokenSource> cancellationTokens = new List<CancellationTokenSource>();
 
         public override void LoadContent(ContentManager content)
         {
@@ -27,22 +29,31 @@ namespace Teknologi_Projekt.Tiles
             {
                 capacity--;
                 sCapacity.Release();
-                mining = new(Mining);
-                mining.IsBackground = true;
-                mining.Start();
+                var cts = new CancellationTokenSource();
+                var miningThread = new Thread(() => Mining(cts.Token));
+                miningThread.IsBackground = true;
+                miningThread.Start();
+                miningThreads.Add(miningThread);
+                cancellationTokens.Add(cts);
                 worker--;
             }
         }
 
         public void FireWorker()
         {
+            var cts = cancellationTokens[0];
+            cts.Cancel();
+
+            miningThreads.RemoveAt(0);
+            cancellationTokens.RemoveAt(0);
+
             capacity++;
             worker++;
         }
 
-        private void Mining()
+        private void Mining(CancellationToken token)
         {
-            while (capacity >= 0)
+            while (!token.IsCancellationRequested && capacity >= 0)
             {
                 sCapacity.WaitOne();
                 Thread.Sleep(1000);

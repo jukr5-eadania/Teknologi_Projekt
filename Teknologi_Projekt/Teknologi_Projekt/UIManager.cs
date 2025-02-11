@@ -13,6 +13,7 @@ namespace Teknologi_Projekt
         private float timer;
         public static int stone;
 
+
         public void LoadContent(ContentManager content)
         {
             buttonTexture = content.Load<Texture2D>("button_rectangle_depth_flat");
