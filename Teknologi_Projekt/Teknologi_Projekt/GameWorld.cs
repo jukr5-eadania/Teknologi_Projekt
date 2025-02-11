@@ -15,7 +15,7 @@ namespace Teknologi_Projekt
         private SpriteBatch _spriteBatch;
         private List<GameObject> gameObjects = new List<GameObject>();
         private Tile[,] tileArray = new Tile[7, 7];
-        public float scale = 0.75f;
+        public float scale = 1f;
         public static Vector2 cursorPosition = new Vector2(2, 0);
         private float cursorCooldown;
 
