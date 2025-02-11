@@ -35,13 +35,19 @@ namespace Teknologi_Projekt.Tiles
 
         public void AddWorkers()
         {
-            
-            UIM.workerCounter += 2;
+            if (UIManager.stone >= 10)
+            {
+                UIM.workerCounter += 2;
+                UIManager.stone -= 10;
+            }
         }
 
         public void AssignWorker()
         {
-            UIM.workerCounter--;
+            if (UIM.workerCounter >= 1)
+            {
+                UIM.workerCounter--;
+            }
         }
     }
 }

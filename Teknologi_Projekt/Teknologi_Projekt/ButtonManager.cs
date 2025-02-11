@@ -17,8 +17,8 @@ namespace Teknologi_Projekt
             UIM = uim;
             UIM.AddButton(new(100, 100)).OnClick += Action;
             UIM.AddButton(new(100, 200)).OnClick += Action1;
-            UIM.AddButton(new(100, 300)).OnClick += Action2;
-            UIM.AddButton(new(100, 400)).OnClick += Action3;
+            UIM.AddButton(new(100, 300)).OnClick += BuildHouse;
+            UIM.AddButton(new(100, 400)).OnClick += AssignTask;
         }
 
         public void Action(object sender, EventArgs e)
@@ -31,7 +31,13 @@ namespace Teknologi_Projekt
             UIM.counter--;
         }
 
-        public void Action2(object sender, EventArgs e) //Build house
+        /// <summary>
+        /// A button that builds a worker house if there are enough resources
+        /// Adds to the workerCounter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void BuildHouse(object sender, EventArgs e)
         {
             if (UIManager.stone >= 10)
             {
@@ -39,7 +45,14 @@ namespace Teknologi_Projekt
                 UIManager.stone -= 10;
             }
         }
-        public void Action3(object sender, EventArgs e) //Assign worker
+
+        /// <summary>
+        /// A button that assigns a non-working worker to a job
+        /// Removes a wworker from the workerCounter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void AssignTask(object sender, EventArgs e) //Assign worker
         {
             if (UIM.workerCounter >= 1)
             {
