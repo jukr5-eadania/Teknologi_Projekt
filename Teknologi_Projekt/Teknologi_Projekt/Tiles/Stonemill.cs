@@ -10,7 +10,6 @@ namespace Teknologi_Projekt.Tiles
         private static bool buildingActive = true;
         private bool hireWorker;
 
-
         public override void LoadContent(ContentManager content)
         {
 
