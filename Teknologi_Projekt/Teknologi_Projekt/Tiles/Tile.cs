@@ -8,13 +8,15 @@ namespace Teknologi_Projekt.Tiles
     public abstract class Tile : GameObject
     {
         protected Texture2D textureAtlas;
-        protected Rectangle destinationRectangle;
+        private Rectangle destinationRectangle;
+        public Vector2 pathfindingDest;
         protected Rectangle source;
 
         protected Tile(Texture2D textureAtlas, int x, int y)
         {
             this.textureAtlas = textureAtlas;
             this.destinationRectangle = new Rectangle(x * 256, y * 256, 256, 256);
+            pathfindingDest = new Vector2((x * 256) + 128, (y * 256) + 128);
 
         }
         public override void LoadContent(ContentManager content)
