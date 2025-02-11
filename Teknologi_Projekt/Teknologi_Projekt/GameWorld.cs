@@ -48,7 +48,6 @@ namespace Teknologi_Projekt
             GameWorld.Height = _graphics.PreferredBackBufferHeight;
             GameWorld.Width = _graphics.PreferredBackBufferWidth;
             base.Initialize();
-
         }
 
         protected override void LoadContent()
