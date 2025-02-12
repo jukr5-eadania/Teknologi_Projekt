@@ -9,7 +9,6 @@ namespace Teknologi_Projekt.Tiles
 {
     internal class Stonemill : Tile
     {
-        private int worker = 3;
         private int capacity = 3;
         private Semaphore sCapacity = new Semaphore(0, 3);
         private List<Thread> miningThreads = new List<Thread>();
@@ -24,6 +23,7 @@ namespace Teknologi_Projekt.Tiles
         {
 
         }
+
         public Stonemill(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
             source = new(1 * tileSize, 1 * tileSize, tileSize, tileSize);
@@ -31,7 +31,7 @@ namespace Teknologi_Projekt.Tiles
 
         public void HireWorker()
         {
-            if (worker >= 1 && capacity <= 3)
+            if (UIManager.workerCounter >= 1 && capacity <= 3)
             {
                 capacity--;
                 sCapacity.Release();
@@ -41,20 +41,23 @@ namespace Teknologi_Projekt.Tiles
                 miningThread.Start();
                 miningThreads.Add(miningThread);
                 cancellationTokens.Add(cts);
-                worker--;
+                UIManager.workerCounter--;
             }
         }
 
         public void FireWorker()
         {
-            var cts = cancellationTokens[0];
-            cts.Cancel();
+            if (UIManager.workerCounter >= 1)
+            {
+                var cts = cancellationTokens[0];
+                cts.Cancel();
 
-            miningThreads.RemoveAt(0);
-            cancellationTokens.RemoveAt(0);
+                miningThreads.RemoveAt(0);
+                cancellationTokens.RemoveAt(0);
 
-            capacity++;
-            worker++;
+                capacity++;
+                UIManager.workerCounter++;
+            }
         }
 
         private void Mining(CancellationToken token)
