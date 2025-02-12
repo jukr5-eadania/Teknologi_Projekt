@@ -69,7 +69,7 @@ namespace Teknologi_Projekt
                 }
             }
             tileArray[3, 3] = new Castle(textureAtlas, 3, 3);
-            tileArray[2, 0] = new Mountain(textureAtlas, 2, 0);
+            tileArray[2, 0] = new Mine(textureAtlas, 2, 0);
             tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
             tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4);

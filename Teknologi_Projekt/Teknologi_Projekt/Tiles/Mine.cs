@@ -16,7 +16,7 @@ namespace Teknologi_Projekt.Tiles
         private int x;
         public Mine(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
-
+            source = new(2 * tileSize, 0 * tileSize, tileSize, tileSize);
         }
 
         public override void LoadContent(ContentManager content)
