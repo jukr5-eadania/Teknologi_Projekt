@@ -70,7 +70,7 @@ namespace Teknologi_Projekt
             }
             tileArray[3, 3] = new Castle(textureAtlas, 3, 3);
             tileArray[2, 0] = new Mountain(textureAtlas, 2, 0);
-            tileArray[0, 4] = new Mine(textureAtlas, 0, 4);
+            tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
