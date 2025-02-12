@@ -40,7 +40,7 @@ namespace Teknologi_Projekt.Tiles
 
         public void FireWorker()
         {
-            if (UIManager.workerCounter >= 1)
+            if (capacity < 4)
             {
                 mine.LeaveMine();
                 capacity++;
