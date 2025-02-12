@@ -53,10 +53,10 @@ namespace Teknologi_Projekt.Tiles
         {
             while (x >= 4)
             {
-            capacity.WaitOne();            
+                capacity.WaitOne();            
                 UIManager.stone++;
-                Thread.Sleep(1000);            
-            capacity.Release();
+                Thread.Sleep(1000);        
+                capacity.Release();
             }
             
         }
