@@ -14,7 +14,7 @@ namespace Teknologi_Projekt.Tiles
     {        
         public WorkerHouse(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
-            source = new(2 * tileSize, 2 * tileSize, tileSize, tileSize);
+            source = new(2 * tileSize, 1 * tileSize, tileSize, tileSize);
         }
 
         public override void LoadContent(ContentManager content)
