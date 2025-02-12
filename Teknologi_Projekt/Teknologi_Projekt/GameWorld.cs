@@ -23,6 +23,7 @@ namespace Teknologi_Projekt
         private ButtonManager BM;
         private Tiles.Stonemill SM;
         private WorkerHouse WH;
+        private Mine M;
 
         public static int Height { get; set; }
         public static int Width { get; set; }
@@ -69,17 +70,12 @@ namespace Teknologi_Projekt
                 }
             }
             tileArray[3, 3] = new Castle(textureAtlas, 3, 3);
-            tileArray[2, 0] = new Mine(textureAtlas, 2, 0);
+            tileArray[2, 0] = M = new Mine(textureAtlas, 2, 0);
             tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
-            tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4);
+            tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4, M);
             tileArray[3, 4] = WH = new WorkerHouse(textureAtlas, 3, 4); 
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
-
-            foreach (Tile tile in tileArray)
-            {
-                tile.LoadContent(Content);
-            }
 
             UIM.LoadContent(Content);
             BM = new ButtonManager(UIM, SM, WH);

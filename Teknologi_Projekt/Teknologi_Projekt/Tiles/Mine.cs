@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Teknologi_Projekt.Tiles
@@ -12,8 +13,13 @@ namespace Teknologi_Projekt.Tiles
     /// </summary>
     internal class Mine : Tile
     {
-        private Semaphore capacity = new Semaphore(0, 4);
-        private int x;
+        private int mineCapacity;
+
+        private Semaphore workerCapacity = new Semaphore(0, 4);
+
+        private List<Thread> miningThreads = new List<Thread>();
+        private List<CancellationTokenSource> cancellationTokens = new List<CancellationTokenSource>();
+
         public Mine(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
             source = new(2 * tileSize, 0 * tileSize, tileSize, tileSize);
@@ -21,12 +27,12 @@ namespace Teknologi_Projekt.Tiles
 
         public override void LoadContent(ContentManager content)
         {
-            EnterMine();
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            
+
         }
 
         /// <summary>
@@ -35,31 +41,39 @@ namespace Teknologi_Projekt.Tiles
         /// </summary>
         public void EnterMine()
         {
-            for (int i = 0; i <= 5; i++)
-            {
-                x++;
-                Thread miningStone = new Thread(MiningStone);
-                miningStone.IsBackground = true;
-                miningStone.Start();
-            }
-            capacity.Release(4);
+            mineCapacity++;
+            var cts = new CancellationTokenSource();
+            var miningThread = new Thread(() => MiningStone(cts.Token));
+            miningThread.IsBackground = true;
+            miningThread.Start();
+            miningThreads.Add(miningThread);
+            cancellationTokens.Add(cts);
+            workerCapacity.Release();
+        }
 
+        public void LeaveMine()
+        {
+            var cts = cancellationTokens[0];
+            cts.Cancel();
+
+            miningThreads.RemoveAt(0);
+            cancellationTokens.RemoveAt(0);
         }
 
         /// <summary>
         /// When having entered, the
         /// workers in the mine will collect stone
         /// </summary>
-        public void MiningStone()
+        public void MiningStone(CancellationToken token)
         {
-            while (x >= 4)
+            while (!token.IsCancellationRequested && mineCapacity > 0)
             {
-                capacity.WaitOne();            
+                workerCapacity.WaitOne();
                 UIManager.stone++;
-                Thread.Sleep(1000);        
-                capacity.Release();
+                Thread.Sleep(1000);
+                workerCapacity.Release();
             }
-            
+
         }
     }
 }
