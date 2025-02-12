@@ -34,6 +34,7 @@ namespace Teknologi_Projekt
         /// <summary>
         /// A button that builds a worker house if there are enough resources
         /// Adds to the workerCounter
+        /// (Note: testing)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -49,6 +50,7 @@ namespace Teknologi_Projekt
         /// <summary>
         /// A button that assigns a non-working worker to a job
         /// Removes a wworker from the workerCounter
+        /// (Note: testing)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

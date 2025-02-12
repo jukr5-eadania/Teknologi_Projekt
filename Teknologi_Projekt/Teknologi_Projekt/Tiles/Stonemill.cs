@@ -19,38 +19,38 @@ namespace Teknologi_Projekt.Tiles
         public override void Update(GameTime gameTime)
         {
             hireWorker = true;
-            HireWorker();
+            //HireWorker();
         }
 
-        public void HireWorker()
-        {
-            //if statement is in place of a button to hire/fire workers. (If is hiring, else is firing)
-            if (hireWorker)
-            {
-                if (worker >= 1)
-                {
-                    Thread mining = new Thread(Mining);
-                    mining.IsBackground = true;
-                    buildingActive = true;
-                    mining.Start();
-                    worker--;
-                }
-            }
-            else
-            {
-                worker++;
-                buildingActive = false;
-            }
-        }
+        //public void HireWorker()
+        //{
+        //    //if statement is in place of a button to hire/fire workers. (If is hiring, else is firing)
+        //    if (hireWorker)
+        //    {
+        //        if (worker >= 1)
+        //        {
+        //            Thread mining = new Thread(Mining);
+        //            mining.IsBackground = true;
+        //            buildingActive = true;
+        //            mining.Start();
+        //            worker--;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        worker++;
+        //        buildingActive = false;
+        //    }
+        //}
 
-        private static void Mining()
-        {
-            while (buildingActive)
-            {
-                Thread.Sleep(1000);
-                UIManager.stone++;
-                Thread.Sleep(1000);
-            }
-        }
+        //private static void Mining()
+        //{
+        //    while (buildingActive)
+        //    {
+        //        Thread.Sleep(1000);
+        //        UIManager.stone++;
+        //        Thread.Sleep(1000);
+        //    }
+        //}
     }
 }
