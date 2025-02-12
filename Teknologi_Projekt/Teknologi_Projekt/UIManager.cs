@@ -12,9 +12,7 @@ namespace Teknologi_Projekt
         private SpriteFont UIFont;
         private float timer;
         public static int stone;
-
-
-        public int workerCounter;
+        public static int workerCounter;
 
         public void LoadContent(ContentManager content)
         {

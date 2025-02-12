@@ -13,16 +13,16 @@ namespace Teknologi_Projekt
         private WorkerHouse WH;
         private Tiles.Stonemill SM;
 
-        public ButtonManager(UIManager uim, Tiles.Stonemill sm)
+        public ButtonManager(UIManager uim, Tiles.Stonemill sm, WorkerHouse wh)
         {
             UIM = uim;
             SM = sm;
+            WH = wh;
+
             UIM.AddButton(new(1000, 100)).OnClick += HireWorkerAction;
-            UIM.AddButton(new(1000, 300)).OnClick += FireWorkerAction;
-            UIM.AddButton(new(100, 100)).OnClick += Action;
-            UIM.AddButton(new(100, 200)).OnClick += Action1;
-            UIM.AddButton(new(100, 300)).OnClick += BuildHouse;
-            UIM.AddButton(new(100, 400)).OnClick += AssignTask;
+            UIM.AddButton(new(1000, 300)).OnClick += FireWorkerAction;            
+            UIM.AddButton(new(1000, 500)).OnClick += BuildHouse;
+            UIM.AddButton(new(1000, 700)).OnClick += AssignTask;
         }
 
         public void HireWorkerAction(object sender, EventArgs e)
@@ -46,7 +46,7 @@ namespace Teknologi_Projekt
         {
             if (UIManager.stone >= 10)
             {
-                UIM.workerCounter += 2;
+                UIManager.workerCounter += 2;
                 UIManager.stone -= 10;
             }
         }
@@ -58,11 +58,11 @@ namespace Teknologi_Projekt
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void AssignTask(object sender, EventArgs e) //Assign worker
+        public void AssignTask(object sender, EventArgs e)
         {
-            if (UIM.workerCounter >= 1)
+            if (UIManager.workerCounter >= 1)
             {
-                UIM.workerCounter--;
+                UIManager.workerCounter--;
             }
         }
 

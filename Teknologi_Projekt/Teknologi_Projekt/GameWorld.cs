@@ -22,6 +22,7 @@ namespace Teknologi_Projekt
         private UIManager UIM = new();
         private ButtonManager BM;
         private Tiles.Stonemill SM;
+        private WorkerHouse WH;
 
         public static int Height { get; set; }
         public static int Width { get; set; }
@@ -72,6 +73,7 @@ namespace Teknologi_Projekt
             tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
             tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4);
+            tileArray[3, 4] = WH = new WorkerHouse(textureAtlas, 3, 4); 
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
 
             foreach (Tile tile in tileArray)
@@ -80,7 +82,7 @@ namespace Teknologi_Projekt
             }
 
             UIM.LoadContent(Content);
-            BM = new ButtonManager(UIM, SM);
+            BM = new ButtonManager(UIM, SM, WH);
         }
 
         protected override void Update(GameTime gameTime)
@@ -180,7 +182,7 @@ namespace Teknologi_Projekt
             {
                 gameObject.Draw(_spriteBatch);
             }
-<<<<<<<<< Temporary merge branch 1
+
             foreach (Tile tile in tileArray)
             {
                 tile.Draw(_spriteBatch);
