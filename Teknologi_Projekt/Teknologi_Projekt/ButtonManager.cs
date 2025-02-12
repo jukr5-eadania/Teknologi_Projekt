@@ -11,24 +11,28 @@ namespace Teknologi_Projekt
     {
         private UIManager UIM;
         private WorkerHouse WH;
+        private Tiles.Stonemill SM;
 
-        public ButtonManager(UIManager uim)
+        public ButtonManager(UIManager uim, Tiles.Stonemill sm)
         {
             UIM = uim;
+            SM = sm;
+            UIM.AddButton(new(1000, 100)).OnClick += HireWorkerAction;
+            UIM.AddButton(new(1000, 300)).OnClick += FireWorkerAction;
             UIM.AddButton(new(100, 100)).OnClick += Action;
             UIM.AddButton(new(100, 200)).OnClick += Action1;
             UIM.AddButton(new(100, 300)).OnClick += BuildHouse;
             UIM.AddButton(new(100, 400)).OnClick += AssignTask;
         }
 
-        public void Action(object sender, EventArgs e)
+        public void HireWorkerAction(object sender, EventArgs e)
         {
-            UIM.counter++;
+            SM.HireWorker();
         }
 
-        public void Action1(object sender, EventArgs e)
+        public void FireWorkerAction(object sender, EventArgs e)
         {
-            UIM.counter--;
+            SM.FireWorker();
         }
 
         /// <summary>

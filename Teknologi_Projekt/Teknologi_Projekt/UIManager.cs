@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 namespace Teknologi_Projekt
@@ -13,7 +12,7 @@ namespace Teknologi_Projekt
         private SpriteFont UIFont;
         private float timer;
         public static int stone;
-        public int counter;
+
 
         public int workerCounter;
 
@@ -49,7 +48,6 @@ namespace Teknologi_Projekt
             }
 
             spriteBatch.DrawString(UIFont, "Time: " + FormatTime(timer), new Vector2(0, 0), Color.White);
-            spriteBatch.DrawString(UIFont, "Counter: " + counter, new Vector2(0, 15), Color.White);
             spriteBatch.DrawString(UIFont, "Stone: " + stone, new Vector2(0, 30), Color.White);
             spriteBatch.DrawString(UIFont, "Workers: " + workerCounter, new Vector2(0, 45), Color.White);
         }
