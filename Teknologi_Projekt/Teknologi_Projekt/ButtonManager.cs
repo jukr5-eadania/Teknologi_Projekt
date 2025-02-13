@@ -41,8 +41,6 @@ namespace Teknologi_Projekt
             if (UIManager.stone >= 10)
             {
                 GameWorld.BuildHouse();
-                UIManager.workerCounter += 2;
-                UIManager.stone -= 10;
             }
         }
 
@@ -51,7 +49,6 @@ namespace Teknologi_Projekt
             if (UIManager.stone >= 20)
             {
                 GameWorld.BuildMine();
-                UIManager.stone -= 20;
             }
         }
     }

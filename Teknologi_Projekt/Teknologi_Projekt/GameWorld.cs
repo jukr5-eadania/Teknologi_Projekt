@@ -189,6 +189,8 @@ namespace Teknologi_Projekt
             if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Grasslands)
             {
                 tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new WorkerHouse(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+                UIManager.workerCounter += 2;
+                UIManager.stone -= 10;
             }
             else
             {
@@ -201,6 +203,7 @@ namespace Teknologi_Projekt
             if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Mountain)
             {
                 tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Mine(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+                UIManager.stone -= 20;
             }
             else
             {
