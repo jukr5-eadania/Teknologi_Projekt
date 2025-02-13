@@ -54,7 +54,7 @@ namespace Teknologi_Projekt
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, color);
+            spriteBatch.Draw(sprite, position, new(0,0, sprite.Width, sprite.Height), color, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 1);
             origin = UIManager.UIFont.MeasureString(text);
             spriteBatch.DrawString(UIManager.UIFont, text, new(position.X + sprite.Width / 2, position.Y + sprite.Height / 2), color, 0, origin / 2, 2, SpriteEffects.None, 0);
         }
