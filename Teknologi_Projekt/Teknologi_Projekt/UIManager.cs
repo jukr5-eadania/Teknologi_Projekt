@@ -44,10 +44,9 @@ namespace Teknologi_Projekt
             {
                 item.Draw(spriteBatch);
             }
-
-            spriteBatch.DrawString(UIFont, "Time: " + FormatTime(timer), new Vector2(0, 0), Color.White);
-            spriteBatch.DrawString(UIFont, "Brick: " + brick, new Vector2(0, 15), Color.White);
-            spriteBatch.DrawString(UIFont, "Workers: " + workerCounter, new Vector2(0, 30), Color.White);
+            spriteBatch.DrawString(UIFont, "Time: " + FormatTime(timer), new Vector2(1000, 0), Color.Black, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(UIFont, "Brick: " + brick, new Vector2(1000, 30), Color.Black, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(UIFont, "Workers: " + workerCounter, new Vector2(1000, 60), Color.Black, 0, Vector2.Zero, 1.5f, SpriteEffects.None, 0);
         }
 
         private string FormatTime(float totalSeconds)

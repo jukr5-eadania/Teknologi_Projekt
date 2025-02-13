@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using Teknologi_Projekt.Tiles;
 
@@ -18,6 +19,7 @@ namespace Teknologi_Projekt
         private float cursorCooldown;
 
         static public GameTime publicGameTime;
+        Random random = new();
 
 
         private UIManager UIM = new();
@@ -71,13 +73,20 @@ namespace Teknologi_Projekt
                 }
             }
             tileArray[3, 3] = new Castle(textureAtlas, 3, 3);
-            tileArray[2, 0] = new Mountain(textureAtlas, 2, 0);
-            tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
-            tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
-            tileArray[4, 6] = new Mountain(textureAtlas, 4, 6);
-            tileArray[3, 5] = new Mountain(textureAtlas, 3, 5);
-            tileArray[5, 0] = new Mountain(textureAtlas, 5, 0);
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
+
+            for (int i = 0; i < 6; i++)
+            {
+                Vector2 mountainPos = new(random.Next(0, 7), random.Next(0, 7));
+                if (tileArray[(int)mountainPos.X, (int)mountainPos.Y] is Grasslands)
+                {
+                    tileArray[(int)mountainPos.X, (int)mountainPos.Y] = new Mountain(textureAtlas, (int)mountainPos.X, (int)mountainPos.Y);
+                }
+                else
+                {
+                    i--;
+                }
+            }
 
             UIM.LoadContent(Content);
             BM = new ButtonManager(UIM);
@@ -123,20 +132,13 @@ namespace Teknologi_Projekt
 
             if (keyState.IsKeyDown(Keys.Right))
             {
-                if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Castle)
-                {
-                    return;
-                }
-                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Mine(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+                UIManager.brick++;
             }
             if (keyState.IsKeyDown(Keys.Left))
             {
-                if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Castle)
-                {
-                    return;
-                }
-                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Grasslands(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+                UIManager.brick--;
             }
+
 
             if (cursorCooldown < 150)
             {

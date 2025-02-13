@@ -1,5 +1,4 @@
 ﻿using System;
-using Teknologi_Projekt.Tiles;
 
 namespace Teknologi_Projekt
 {

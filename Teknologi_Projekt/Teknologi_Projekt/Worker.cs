@@ -108,6 +108,11 @@ namespace Teknologi_Projekt
                         }
                     }
                 }
+                else
+                {
+                    destTile = GameWorld.tileArray[random.Next(0, 6), random.Next(0, 6)];
+                    MoveTo(destTile);
+                }
             }
         }
 
