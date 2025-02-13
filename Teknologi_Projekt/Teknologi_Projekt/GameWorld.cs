@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Transactions;
 using Teknologi_Projekt.Tiles;
 
 namespace Teknologi_Projekt
@@ -13,22 +12,28 @@ namespace Teknologi_Projekt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private List<GameObject> gameObjects = new List<GameObject>();
-        private Tile[,] tileArray = new Tile[7, 7];
-        public float scale = 1f;
-        public static Vector2 cursorPosition = new Vector2(2, 0);
+
+        private List<GameObject> gameObjects = new();
+        public static Tile[,] tileArray = new Tile[7, 7];
+        public float scale = 0.75f;
+        public static Vector2 cursorPosition = new(2, 0);
         private float cursorCooldown;
 
+        static public GameTime publicGameTime;
+
+ 
         private UIManager UIM = new();
         private ButtonManager BM;
         private Tiles.Stonemill SM;
         private WorkerHouse WH;
         private Mine M;
 
+
         public static int Height { get; set; }
         public static int Width { get; set; }
 
         private Texture2D textureAtlas;
+        private Texture2D playerSprite;
 
         private Matrix translation;
 
@@ -56,6 +61,7 @@ namespace Teknologi_Projekt
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             textureAtlas = Content.Load<Texture2D>("Tilesheet");
+            playerSprite = Content.Load<Texture2D>("PlayerPNG");
             translation = Matrix.CreateScale(scale);
             foreach (GameObject gameObject in gameObjects)
             {
@@ -73,9 +79,12 @@ namespace Teknologi_Projekt
             tileArray[2, 0] = M = new Mine(textureAtlas, 2, 0);
             tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
+
+
             tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4, M);
             tileArray[3, 4] = WH = new WorkerHouse(textureAtlas, 3, 4); 
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
+            gameObjects.Add(new Worker(playerSprite));
 
             UIM.LoadContent(Content);
             BM = new ButtonManager(UIM, SM, WH);
@@ -83,6 +92,7 @@ namespace Teknologi_Projekt
 
         protected override void Update(GameTime gameTime)
         {
+            publicGameTime = gameTime;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -98,7 +108,7 @@ namespace Teknologi_Projekt
             UIM.Update(gameTime);
             base.Update(gameTime);
 
-
+            
             HandleInput(gameTime);
 
 
@@ -114,16 +124,28 @@ namespace Teknologi_Projekt
             {
                 scale -= (float)0.001;
                 translation = Matrix.CreateScale(scale);
-
-
-
             }
             else if (keyState.IsKeyDown(Keys.Up))
             {
                 scale += (float)0.001;
                 translation = Matrix.CreateScale(scale);
+            }
 
-
+            if (keyState.IsKeyDown(Keys.Right))
+            {
+                if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Castle)
+                {
+                    return;
+                }
+                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Mountain(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+            }
+            if (keyState.IsKeyDown(Keys.Left))
+            {
+                if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Castle)
+                {
+                    return;
+                }
+                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Grasslands(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
             }
 
             if (cursorCooldown < 150)

@@ -22,7 +22,9 @@ namespace Teknologi_Projekt.Tiles
 
         public Mine(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
+
             source = new(2 * tileSize, 0 * tileSize, tileSize, tileSize);
+
         }
 
         public override void LoadContent(ContentManager content)
@@ -32,6 +34,7 @@ namespace Teknologi_Projekt.Tiles
 
         public override void Update(GameTime gameTime)
         {
+
 
         }
 
@@ -73,7 +76,7 @@ namespace Teknologi_Projekt.Tiles
                 Thread.Sleep(1000);
                 workerCapacity.Release();
             }
-
+y
         }
     }
 }

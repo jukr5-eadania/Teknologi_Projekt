@@ -13,7 +13,8 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin button_rectangle_depth_flat.png
+
+#begin PlayerPNG.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,7 +24,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:button_rectangle_depth_flat.png
+/build:PlayerPNG.png
+
+
 
 #begin Tilesheet.png
 /importer:TextureImporter
