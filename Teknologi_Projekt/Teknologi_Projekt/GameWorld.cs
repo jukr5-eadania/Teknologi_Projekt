@@ -13,13 +13,13 @@ namespace Teknologi_Projekt
 
         private List<GameObject> gameObjects = new();
         public static Tile[,] tileArray = new Tile[7, 7];
-        public float scale = 0.75f;
+        public float scale = 1f;
         public static Vector2 cursorPosition = new(2, 0);
         private float cursorCooldown;
 
         static public GameTime publicGameTime;
 
- 
+
         private UIManager UIM = new();
         private ButtonManager BM;
         private Tiles.Stonemill SM;
@@ -29,7 +29,7 @@ namespace Teknologi_Projekt
         public static int Height { get; set; }
         public static int Width { get; set; }
 
-        private Texture2D textureAtlas;
+        private static Texture2D textureAtlas;
         private Texture2D playerSprite;
 
         private Matrix translation;
@@ -76,10 +76,7 @@ namespace Teknologi_Projekt
             tileArray[2, 0] = M = new Mine(textureAtlas, 2, 0);
             tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
-
-
             tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4, M);
-            tileArray[3, 4] = new WorkerHouse(textureAtlas, 3, 4); 
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
             gameObjects.Add(new Worker(playerSprite));
 
@@ -99,19 +96,16 @@ namespace Teknologi_Projekt
             }
             foreach (Tile tile in tileArray)
             {
-                tile.Update(gameTime);                
+                tile.Update(gameTime);
             }
 
             UIM.Update(gameTime);
             base.Update(gameTime);
 
-            
+
             HandleInput(gameTime);
-
-
-
-
         }
+
         private void HandleInput(GameTime gameTime)
         {
             KeyboardState keyState = Keyboard.GetState();
@@ -127,24 +121,6 @@ namespace Teknologi_Projekt
                 scale += (float)0.001;
                 translation = Matrix.CreateScale(scale);
             }
-
-            if (keyState.IsKeyDown(Keys.Right))
-            {
-                if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Castle)
-                {
-                    return;
-                }
-                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Mountain(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
-            }
-            if (keyState.IsKeyDown(Keys.Left))
-            {
-                if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Castle)
-                {
-                    return;
-                }
-                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Grasslands(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
-            }
-
             if (cursorCooldown < 150)
             {
                 return;
@@ -185,7 +161,6 @@ namespace Teknologi_Projekt
             {
                 cursorPosition.X = 0;
             }
-
         }
 
         protected override void Draw(GameTime gameTime)
@@ -207,6 +182,18 @@ namespace Teknologi_Projekt
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public static void BuildHouse()
+        {
+            if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Grasslands)
+            {
+                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new WorkerHouse(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

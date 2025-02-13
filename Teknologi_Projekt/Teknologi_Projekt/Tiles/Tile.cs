@@ -19,8 +19,6 @@ namespace Teknologi_Projekt.Tiles
 
             this.destinationRectangle = new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize);
             pathfindingDest = new Vector2((x * tileSize) + (tileSize / 2), (y * tileSize) + (tileSize / 2));
-
-
         }
         public override void LoadContent(ContentManager content)
         {
