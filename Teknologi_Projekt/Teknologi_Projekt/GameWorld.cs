@@ -11,7 +11,7 @@ namespace Teknologi_Projekt
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private List<GameObject> gameObjects = new();
+        public static List<GameObject> gameObjects = new();
         public static Tile[,] tileArray = new Tile[7, 7];
         public float scale = 1f;
         public static Vector2 cursorPosition = new(2, 0);
@@ -28,7 +28,7 @@ namespace Teknologi_Projekt
         public static int Width { get; set; }
 
         private static Texture2D textureAtlas;
-        private Texture2D playerSprite;
+        private static Texture2D playerSprite;
 
         private Matrix translation;
 
@@ -71,18 +71,10 @@ namespace Teknologi_Projekt
                 }
             }
             tileArray[3, 3] = new Castle(textureAtlas, 3, 3);
-            tileArray[2, 0] = new Mine(textureAtlas, 2, 0);
-            tileArray[0, 4] = new Mine(textureAtlas, 0, 4);
+            tileArray[2, 0] = new Mountain(textureAtlas, 2, 0);
+            tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
-
-
-            tileArray[1, 4] = new Stonemill(textureAtlas, 1, 4);
-            tileArray[3, 4] = new WorkerHouse(textureAtlas, 3, 4); 
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
-            for (int i = 0; i < 2; i++)
-            {
-                gameObjects.Add(new Worker(playerSprite));
-            }
 
             UIM.LoadContent(Content);
             BM = new ButtonManager(UIM);
@@ -212,6 +204,7 @@ namespace Teknologi_Projekt
             {
                 tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new WorkerHouse(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
                 UIManager.workerCounter += 1;
+                gameObjects.Add(new Worker(playerSprite));
                 UIManager.brick -= 10;
             }
             else
