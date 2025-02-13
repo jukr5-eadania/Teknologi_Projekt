@@ -108,17 +108,9 @@ namespace Teknologi_Projekt
                         }
                     }
                 }
-                
-                    
-                
-
-
-                //destTile = GameWorld.tileArray[random.Next(0, 6), random.Next(0, 6)];
-                //MoveTo(destTile);
             }
-            
-
         }
+
         private void Search()
         {
             mines = new();

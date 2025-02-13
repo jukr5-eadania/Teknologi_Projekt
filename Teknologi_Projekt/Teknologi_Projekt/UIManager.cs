@@ -11,7 +11,7 @@ namespace Teknologi_Projekt
         private static List<Button> buttons = new();
         public static SpriteFont UIFont;
         private float timer;
-        public static int brick = 10;
+        public static int brick = 45;
         public static int workerCounter;
 
         public void LoadContent(ContentManager content)
@@ -20,9 +20,9 @@ namespace Teknologi_Projekt
             UIFont = content.Load<SpriteFont>("UIFont");
         }
 
-        public Button AddButton(Vector2 position)
+        public Button AddButton(Vector2 position, string text)
         {
-            Button b = new Button(buttonTexture, position);
+            Button b = new Button(buttonTexture, position, text);
             buttons.Add(b);
 
             return b;
