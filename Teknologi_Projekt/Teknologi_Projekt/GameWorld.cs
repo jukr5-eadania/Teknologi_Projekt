@@ -195,5 +195,17 @@ namespace Teknologi_Projekt
                 return;
             }
         }
+
+        public static void BuildMine()
+        {
+            if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Mountain)
+            {
+                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Mine(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+            }
+            else
+            {
+                return;
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace Teknologi_Projekt
             UIM.AddButton(new(1000, 100)).OnClick += HireWorkerAction;
             UIM.AddButton(new(1000, 300)).OnClick += FireWorkerAction;
             UIM.AddButton(new(1000, 500)).OnClick += BuildHouse;
+            UIM.AddButton(new(1000, 700)).OnClick += BuildMine;
         }
 
         public void HireWorkerAction(object sender, EventArgs e)
@@ -43,7 +44,15 @@ namespace Teknologi_Projekt
                 UIManager.workerCounter += 2;
                 UIManager.stone -= 10;
             }
+        }
 
+        public void BuildMine(object sender, EventArgs e)
+        {
+            if (UIManager.stone >= 20)
+            {
+                GameWorld.BuildMine();
+                UIManager.stone -= 20;
+            }
         }
     }
 }
