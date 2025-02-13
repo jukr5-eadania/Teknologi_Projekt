@@ -74,6 +74,9 @@ namespace Teknologi_Projekt
             tileArray[2, 0] = new Mountain(textureAtlas, 2, 0);
             tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
+            tileArray[4, 6] = new Mountain(textureAtlas, 4, 6);
+            tileArray[3, 5] = new Mountain(textureAtlas, 3, 5);
+            tileArray[5, 0] = new Mountain(textureAtlas, 5, 0);
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
 
             UIM.LoadContent(Content);
