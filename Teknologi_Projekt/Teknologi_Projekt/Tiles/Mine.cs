@@ -17,11 +17,6 @@ namespace Teknologi_Projekt.Tiles
         public bool taken;
 
         static readonly object lockObject = new();
-        private Semaphore workerCapacity = new Semaphore(0, 4);
-
-        private List<Thread> miningThreads = new List<Thread>();
-        private List<CancellationTokenSource> cancellationTokens = new List<CancellationTokenSource>();
-
         public Mine(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
 
@@ -50,10 +45,7 @@ namespace Teknologi_Projekt.Tiles
             spriteBatch.DrawString(UIManager.UIFont, "" + stones, new Vector2(destinationRectangle.X + 15, destinationRectangle.Y + 15), Color.White);
         }
 
-        /// <summary>
-        /// Checks to see if there are space for 
-        /// more workers in the mine.
-        /// </summary>
+       
         public void EnterMine(Worker worker)
         {
             lock (lockObject)

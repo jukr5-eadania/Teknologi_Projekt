@@ -29,11 +29,12 @@ namespace Teknologi_Projekt.Tiles
 
         public void MakeBricks(Worker worker)
         {
-            
+            lock (lockObject)
+            {
                 Thread.Sleep(5000);
                 worker.bricks = worker.stones;
                 worker.stones = 0;
-          
+            }
             taken = false;
         }
         
