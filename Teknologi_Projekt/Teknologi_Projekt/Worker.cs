@@ -39,7 +39,7 @@ namespace Teknologi_Projekt
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, new Rectangle(0, 0, 150, 150), color, 0, new Vector2(75, 75), 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(sprite, position, new Rectangle(0, 0, 150, 150), color, 0, new Vector2(75, 75), 0.5f, SpriteEffects.None, 0);
         }
 
         private void WorkerLoop()
