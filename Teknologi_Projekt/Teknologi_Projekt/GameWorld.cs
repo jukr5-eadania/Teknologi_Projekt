@@ -15,7 +15,7 @@ namespace Teknologi_Projekt
 
         private List<GameObject> gameObjects = new();
         public static Tile[,] tileArray = new Tile[7, 7];
-        public float scale = 0.75f;
+        public float scale = 1f;
         public static Vector2 cursorPosition = new(2, 0);
         private float cursorCooldown;
 
@@ -24,9 +24,6 @@ namespace Teknologi_Projekt
  
         private UIManager UIM = new();
         private ButtonManager BM;
-        private Tiles.Stonemill SM;
-        private WorkerHouse WH;
-        private Mine M;
 
 
         public static int Height { get; set; }
@@ -76,18 +73,21 @@ namespace Teknologi_Projekt
                 }
             }
             tileArray[3, 3] = new Castle(textureAtlas, 3, 3);
-            tileArray[2, 0] = M = new Mine(textureAtlas, 2, 0);
-            tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
+            tileArray[2, 0] = new Mine(textureAtlas, 2, 0);
+            tileArray[0, 4] = new Mine(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
 
 
-            tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4, M);
-            tileArray[3, 4] = WH = new WorkerHouse(textureAtlas, 3, 4); 
+            tileArray[1, 4] = new Stonemill(textureAtlas, 1, 4);
+            tileArray[3, 4] = new WorkerHouse(textureAtlas, 3, 4); 
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
-            gameObjects.Add(new Worker(playerSprite));
+            for (int i = 0; i < 2; i++)
+            {
+                gameObjects.Add(new Worker(playerSprite));
+            }
 
             UIM.LoadContent(Content);
-            BM = new ButtonManager(UIM, SM, WH);
+            BM = new ButtonManager(UIM);
         }
 
         protected override void Update(GameTime gameTime)
@@ -137,7 +137,7 @@ namespace Teknologi_Projekt
                 {
                     return;
                 }
-                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Mountain(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Mine(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
             }
             if (keyState.IsKeyDown(Keys.Left))
             {

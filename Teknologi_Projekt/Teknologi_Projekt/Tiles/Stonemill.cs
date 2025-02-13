@@ -9,8 +9,10 @@ namespace Teknologi_Projekt.Tiles
 {
     internal class Stonemill : Tile
     {
-        private int capacity = 4;
-        private Mine mine;
+        static readonly object lockObject = new();
+
+
+        public bool taken = false;
 
         public override void LoadContent(ContentManager content)
         {
@@ -22,30 +24,20 @@ namespace Teknologi_Projekt.Tiles
 
         }
 
-        public Stonemill(Texture2D textureAtlas, int x, int y, Mine M) : base(textureAtlas, x, y)
+        public Stonemill(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
-            mine = M;
             source = new(1 * tileSize, 1 * tileSize, tileSize, tileSize);
         }
 
-        public void HireWorker()
+        public void MakeBricks(Worker worker)
         {
-            if (UIManager.workerCounter >= 1 && capacity > 0)
-            {
-                capacity--;
-                mine.EnterMine();
-                UIManager.workerCounter--;
-            }
+            
+                Thread.Sleep(5000);
+                worker.bricks = worker.stones;
+                worker.stones = 0;
+          
+            taken = false;
         }
-
-        public void FireWorker()
-        {
-            if (capacity < 4)
-            {
-                mine.LeaveMine();
-                capacity++;
-                UIManager.workerCounter++;
-            }
-        }
+        
     }
 }

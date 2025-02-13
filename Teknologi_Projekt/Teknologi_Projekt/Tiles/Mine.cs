@@ -13,8 +13,11 @@ namespace Teknologi_Projekt.Tiles
     /// </summary>
     internal class Mine : Tile
     {
-        private int mineCapacity;
+        private float cooldown;
+        public int stones;
+        public bool taken;
 
+        static readonly object lockObject = new();
         private Semaphore workerCapacity = new Semaphore(0, 4);
 
         private List<Thread> miningThreads = new List<Thread>();
@@ -34,48 +37,34 @@ namespace Teknologi_Projekt.Tiles
 
         public override void Update(GameTime gameTime)
         {
+            cooldown += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (cooldown > 5000)
+            {
+                stones++;
+                cooldown = 0;
+            }
 
-
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(textureAtlas, destinationRectangle, source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.DrawString(UIManager.UIFont, "" + stones, new Vector2(destinationRectangle.X + 15, destinationRectangle.Y + 15), Color.White);
         }
 
         /// <summary>
         /// Checks to see if there are space for 
         /// more workers in the mine.
         /// </summary>
-        public void EnterMine()
+        public void EnterMine(Worker worker)
         {
-            mineCapacity++;
-            var cts = new CancellationTokenSource();
-            var miningThread = new Thread(() => MiningStone(cts.Token));
-            miningThread.IsBackground = true;
-            miningThread.Start();
-            miningThreads.Add(miningThread);
-            cancellationTokens.Add(cts);
-            workerCapacity.Release();
-        }
-
-        public void LeaveMine()
-        {
-            var cts = cancellationTokens[0];
-            cts.Cancel();
-
-            miningThreads.RemoveAt(0);
-            cancellationTokens.RemoveAt(0);
-        }
-
-        /// <summary>
-        /// When having entered, the
-        /// workers in the mine will collect stone
-        /// </summary>
-        public void MiningStone(CancellationToken token)
-        {
-            while (!token.IsCancellationRequested && mineCapacity > 0)
+            lock (lockObject)
             {
-                workerCapacity.WaitOne();
-                UIManager.stone++;
-                Thread.Sleep(1000);
-                workerCapacity.Release();
+                Thread.Sleep(5000);
+                worker.stones = this.stones;
+                stones = 0;
             }
+            taken = false;
         }
+
     }
 }

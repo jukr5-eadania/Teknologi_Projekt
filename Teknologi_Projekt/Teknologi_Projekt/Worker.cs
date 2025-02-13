@@ -20,10 +20,20 @@ namespace Teknologi_Projekt
         private Vector2 dir;
         private static Castle castle;
         private Tile destTile;
+
+        public int stones;
+        public int bricks;
+
+        public int target;
+
+        List<Mine> mines = new();
+        List<Mountain> mountains = new();
+        List<Stonemill> stonemills = new();
+
         public Worker(Texture2D sprite)
         {
             this.sprite = sprite;
-            position = new Vector2(896, 896);
+            position = new Vector2(448, 448);
             Thread workerLogic = new(WorkerLoop);
             workerLogic.IsBackground = true;
             workerLogic.Start();
@@ -35,7 +45,7 @@ namespace Teknologi_Projekt
         public override void Update(GameTime gameTime)
         {
             float deltaTime = (float)GameWorld.publicGameTime.ElapsedGameTime.TotalSeconds;
-            position += (dir * 2) * deltaTime;
+            position += (dir * 10) * deltaTime;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -50,56 +60,103 @@ namespace Teknologi_Projekt
                 {
                     castle = (Castle)tile;
                 }
+                
             }
 
             while (true)
             {
                 Random random = new();
-                List<Tile> mines = new();
-                List<Tile> mountains = new();
+                Search();
 
-                foreach (Tile tile in GameWorld.tileArray)
+
+                if (bricks > 0)
                 {
-                    if (tile is Mine)
+                    MoveTo(castle);
+                    if (Vector2.Distance(position, castle.pathfindingDest) <= 20)
                     {
-                        mines.Add(tile);
-                    }
-                    if (tile is Mountain)
-                    {
-                        mountains.Add(tile);
+                        UIManager.brick += this.bricks;
+                        this.bricks = 0;
                     }
                 }
-
+                else if (mines.Any() && (stones <= 0))
+                {
+                    bool looking = true;
+                    while (looking)
+                    {
+                        Thread.Sleep(random.Next(0, 10));
+                        Search();
+                        target = random.Next(0, mines.Count);
+                        destTile = mines[target];
+                        MoveTo(destTile);
+                        if (mines[target].stones > 0 && !mines[target].taken && Vector2.Distance(position, destTile.pathfindingDest) <= 20)
+                        {
+                            mines[target].taken = true;
+                            mines[target].EnterMine(this);
+                            looking = false;
+                        }
+                    }
+                    
+                }
+                else if (stonemills.Any() && (stones > 0))
+                {
+                    bool looking = true;
+                    while (looking)
+                    {
+                        Search();
+                        target = random.Next(0, stonemills.Count);
+                        destTile = stonemills[target];
+                        MoveTo(destTile);
+                        if (!stonemills[target].taken && Vector2.Distance(position, destTile.pathfindingDest) <= 20)
+                        {
+                            stonemills[target].taken = true;
+                            stonemills[target].MakeBricks(this);
+                            looking = false;
+                        }
+                    }
+                }
+                
+                    
+                
 
 
                 //destTile = GameWorld.tileArray[random.Next(0, 6), random.Next(0, 6)];
                 //MoveTo(destTile);
-                if (mountains.Any())
-                {
-                destTile = mountains[random.Next(0, mountains.Count)];
-                }
-                else
-                {
-                    destTile = castle;
-                }
-
-                MoveTo(destTile);
-
             }
             
 
         }
+        private void Search()
+        {
+            mines = new();
+            mountains = new();
+            stonemills = new();
 
+            foreach (Tile tile in GameWorld.tileArray)
+            {
+                if (tile is Mine)
+                {
+                    mines.Add((Mine)tile);
+                }
+                if (tile is Mountain)
+                {
+                    mountains.Add((Mountain)tile);
+                }
+                if (tile is Stonemill)
+                {
+                    stonemills.Add((Stonemill)tile);
+                }
+            }
+        }
         private void MoveTo(Tile destTile)
         {
             while (true)
             {
                 
                 dir = destTile.pathfindingDest - position;
-                //dir.Normalize();
                 
                 if (Vector2.Distance(position, destTile.pathfindingDest) <= 20)
                 {
+                    dir = Vector2.Zero;
                     return;
                 }
             }

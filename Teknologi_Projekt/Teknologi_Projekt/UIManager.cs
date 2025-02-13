@@ -9,9 +9,9 @@ namespace Teknologi_Projekt
     {
         private Texture2D buttonTexture;
         private static List<Button> buttons = new();
-        private SpriteFont UIFont;
+        public static SpriteFont UIFont;
         private float timer;
-        public static int stone = 10;
+        public static int brick = 10;
         public static int workerCounter;
 
         public void LoadContent(ContentManager content)
@@ -46,8 +46,8 @@ namespace Teknologi_Projekt
             }
 
             spriteBatch.DrawString(UIFont, "Time: " + FormatTime(timer), new Vector2(0, 0), Color.White);
-            spriteBatch.DrawString(UIFont, "Stone: " + stone, new Vector2(0, 30), Color.White);
-            spriteBatch.DrawString(UIFont, "Workers: " + workerCounter, new Vector2(0, 45), Color.White);
+            spriteBatch.DrawString(UIFont, "Brick: " + brick, new Vector2(0, 15), Color.White);
+            spriteBatch.DrawString(UIFont, "Workers: " + workerCounter, new Vector2(0, 30), Color.White);
         }
 
         private string FormatTime(float totalSeconds)
