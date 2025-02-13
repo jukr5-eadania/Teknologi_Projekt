@@ -11,7 +11,7 @@ namespace Teknologi_Projekt
         private static List<Button> buttons = new();
         private SpriteFont UIFont;
         private float timer;
-        public static int stone = 10;
+        public static int stone = 30;
         public static int workerCounter;
 
         public void LoadContent(ContentManager content)
