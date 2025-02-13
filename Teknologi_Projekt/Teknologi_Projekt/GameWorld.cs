@@ -12,10 +12,10 @@ namespace Teknologi_Projekt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private List<GameObject> gameObjects = new List<GameObject>();
+        private List<GameObject> gameObjects = new();
         public static Tile[,] tileArray = new Tile[7, 7];
         public float scale = 0.75f;
-        public static Vector2 cursorPosition = new Vector2(2, 0);
+        public static Vector2 cursorPosition = new(2, 0);
         private float cursorCooldown;
 
         static public GameTime publicGameTime;
@@ -73,11 +73,7 @@ namespace Teknologi_Projekt
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
             tileArray[0, 0] = new Mine(textureAtlas, 0, 0);
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
-            for (int i = 0; i < 1; i++)
-            {
             gameObjects.Add(new Worker(playerSprite));
-
-            }
 
         }
 

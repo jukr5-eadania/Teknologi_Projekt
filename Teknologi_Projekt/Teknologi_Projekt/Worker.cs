@@ -24,7 +24,7 @@ namespace Teknologi_Projekt
         {
             this.sprite = sprite;
             position = new Vector2(896, 896);
-            Thread workerLogic = new Thread(WorkerLoop);
+            Thread workerLogic = new(WorkerLoop);
             workerLogic.IsBackground = true;
             workerLogic.Start();
         }
@@ -64,27 +64,26 @@ namespace Teknologi_Projekt
                     {
                         mines.Add(tile);
                     }
-                }
-                foreach (Tile tile in GameWorld.tileArray)
-                {
                     if (tile is Mountain)
                     {
                         mountains.Add(tile);
                     }
                 }
-                if (mountains.Any())
-                {
-                    destTile = mountains.First();
-                    MoveTo(destTile);
-                    destTile = mountains.Last();
-                    MoveTo(destTile);
-                }
-                    MoveTo(castle);
-                
+
+
 
                 //destTile = GameWorld.tileArray[random.Next(0, 6), random.Next(0, 6)];
                 //MoveTo(destTile);
+                if (mountains.Any())
+                {
+                destTile = mountains[random.Next(0, mountains.Count)];
+                }
+                else
+                {
+                    destTile = castle;
+                }
 
+                MoveTo(destTile);
 
             }
             
