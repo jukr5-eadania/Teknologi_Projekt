@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Linq;
 using System.Collections.Generic;
 using Teknologi_Projekt.Tiles;
 
@@ -25,7 +23,6 @@ namespace Teknologi_Projekt
         private UIManager UIM = new();
         private ButtonManager BM;
         private Tiles.Stonemill SM;
-        private WorkerHouse WH;
         private Mine M;
 
 
@@ -82,12 +79,12 @@ namespace Teknologi_Projekt
 
 
             tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4, M);
-            tileArray[3, 4] = WH = new WorkerHouse(textureAtlas, 3, 4); 
+            tileArray[3, 4] = new WorkerHouse(textureAtlas, 3, 4); 
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
             gameObjects.Add(new Worker(playerSprite));
 
             UIM.LoadContent(Content);
-            BM = new ButtonManager(UIM, SM, WH);
+            BM = new ButtonManager(UIM, SM);
         }
 
         protected override void Update(GameTime gameTime)

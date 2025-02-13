@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Teknologi_Projekt.Tiles;
 
 namespace Teknologi_Projekt
@@ -10,14 +6,12 @@ namespace Teknologi_Projekt
     internal class ButtonManager
     {
         private UIManager UIM;
-        private WorkerHouse WH;
         private Tiles.Stonemill SM;
 
-        public ButtonManager(UIManager uim, Tiles.Stonemill sm, WorkerHouse wh)
+        public ButtonManager(UIManager uim, Tiles.Stonemill sm)
         {
             UIM = uim;
             SM = sm;
-            WH = wh;
 
             UIM.AddButton(new(1000, 100)).OnClick += HireWorkerAction;
             UIM.AddButton(new(1000, 300)).OnClick += FireWorkerAction;            
