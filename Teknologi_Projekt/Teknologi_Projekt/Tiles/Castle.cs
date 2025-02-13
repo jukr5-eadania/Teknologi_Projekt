@@ -9,12 +9,12 @@ namespace Teknologi_Projekt.Tiles
     {
         public Castle(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
-            source = new(0 * 256, 1 * 256, 256, 256);
+            source = new(0 * tileSize, 1 * tileSize, tileSize, tileSize);
         }
 
         public override void LoadContent(ContentManager content)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Update(GameTime gameTime)

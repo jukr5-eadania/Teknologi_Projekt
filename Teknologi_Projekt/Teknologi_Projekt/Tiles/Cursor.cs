@@ -9,12 +9,12 @@ namespace Teknologi_Projekt.Tiles
     {
         public Cursor(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
-            source = new(0 * 256, 2 * 256, 256, 256);
+            source = new(0 * tileSize, 2 * tileSize, tileSize, tileSize);
         }
 
         public override void LoadContent(ContentManager content)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -22,7 +22,7 @@ namespace Teknologi_Projekt.Tiles
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(textureAtlas, new Rectangle((int)GameWorld.cursorPosition.X * 256, (int)GameWorld.cursorPosition.Y * 256, 256, 256)  , source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+            spriteBatch.Draw(textureAtlas, new Rectangle((int)GameWorld.cursorPosition.X * tileSize, (int)GameWorld.cursorPosition.Y * tileSize, tileSize, tileSize)  , source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
         }
     }
 }

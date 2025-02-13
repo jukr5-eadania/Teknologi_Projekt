@@ -12,6 +12,7 @@ namespace Teknologi_Projekt
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
         private List<GameObject> gameObjects = new();
         public static Tile[,] tileArray = new Tile[7, 7];
         public float scale = 0.75f;
@@ -19,6 +20,14 @@ namespace Teknologi_Projekt
         private float cursorCooldown;
 
         static public GameTime publicGameTime;
+
+ 
+        private UIManager UIM = new();
+        private ButtonManager BM;
+        private Tiles.Stonemill SM;
+        private WorkerHouse WH;
+        private Mine M;
+
 
         public static int Height { get; set; }
         public static int Width { get; set; }
@@ -33,10 +42,10 @@ namespace Teknologi_Projekt
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.HardwareModeSwitch = false;
-            Window.IsBorderless = true;
-            _graphics.IsFullScreen = true;
-            _graphics.PreferredBackBufferHeight = 1080;
-            _graphics.PreferredBackBufferWidth = 1920;
+            Window.IsBorderless = false;
+            _graphics.IsFullScreen = false;
+            _graphics.PreferredBackBufferHeight = 896;
+            _graphics.PreferredBackBufferWidth = 1500;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -46,7 +55,6 @@ namespace Teknologi_Projekt
             GameWorld.Height = _graphics.PreferredBackBufferHeight;
             GameWorld.Width = _graphics.PreferredBackBufferWidth;
             base.Initialize();
-
         }
 
         protected override void LoadContent()
@@ -68,13 +76,18 @@ namespace Teknologi_Projekt
                 }
             }
             tileArray[3, 3] = new Castle(textureAtlas, 3, 3);
-            tileArray[2, 0] = new Mountain(textureAtlas, 2, 0);
+            tileArray[2, 0] = M = new Mine(textureAtlas, 2, 0);
             tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
-            tileArray[0, 0] = new Mine(textureAtlas, 0, 0);
+
+
+            tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4, M);
+            tileArray[3, 4] = WH = new WorkerHouse(textureAtlas, 3, 4); 
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
             gameObjects.Add(new Worker(playerSprite));
 
+            UIM.LoadContent(Content);
+            BM = new ButtonManager(UIM, SM, WH);
         }
 
         protected override void Update(GameTime gameTime)
@@ -89,9 +102,10 @@ namespace Teknologi_Projekt
             }
             foreach (Tile tile in tileArray)
             {
-                tile.Update(gameTime);
+                tile.Update(gameTime);                
             }
 
+            UIM.Update(gameTime);
             base.Update(gameTime);
 
             
@@ -186,10 +200,13 @@ namespace Teknologi_Projekt
             {
                 gameObject.Draw(_spriteBatch);
             }
+
             foreach (Tile tile in tileArray)
             {
                 tile.Draw(_spriteBatch);
             }
+
+            UIM.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

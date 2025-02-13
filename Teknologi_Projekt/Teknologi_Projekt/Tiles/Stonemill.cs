@@ -3,26 +3,49 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Teknologi_Projekt.Tiles
 {
     internal class Stonemill : Tile
     {
-        public Stonemill(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
-        {
-        }
+        private int capacity = 4;
+        private Mine mine;
 
         public override void LoadContent(ContentManager content)
         {
-            throw new NotImplementedException();
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+
+        }
+
+        public Stonemill(Texture2D textureAtlas, int x, int y, Mine M) : base(textureAtlas, x, y)
+        {
+            mine = M;
+            source = new(1 * tileSize, 1 * tileSize, tileSize, tileSize);
+        }
+
+        public void HireWorker()
+        {
+            if (UIManager.workerCounter >= 1 && capacity > 0)
+            {
+                capacity--;
+                mine.EnterMine();
+                UIManager.workerCounter--;
+            }
+        }
+
+        public void FireWorker()
+        {
+            if (capacity < 4)
+            {
+                mine.LeaveMine();
+                capacity++;
+                UIManager.workerCounter++;
+            }
         }
     }
 }

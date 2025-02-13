@@ -11,12 +11,15 @@ namespace Teknologi_Projekt.Tiles
         private Rectangle destinationRectangle;
         public Vector2 pathfindingDest;
         protected Rectangle source;
+        protected int tileSize = 128;
 
         protected Tile(Texture2D textureAtlas, int x, int y)
         {
             this.textureAtlas = textureAtlas;
-            this.destinationRectangle = new Rectangle(x * 256, y * 256, 256, 256);
-            pathfindingDest = new Vector2((x * 256) + 128, (y * 256) + 128);
+
+            this.destinationRectangle = new Rectangle(x * tileSize, y * tileSize, tileSize, tileSize);
+            pathfindingDest = new Vector2((x * tileSize) + (tileSize / 2), (y * tileSize) + (tileSize / 2));
+
 
         }
         public override void LoadContent(ContentManager content)

@@ -9,12 +9,12 @@ namespace Teknologi_Projekt.Tiles
     {
         public Mountain(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
-            source = new(1 * 256, 0 * 256, 256, 256);
+            source = new(1 * tileSize, 0 * tileSize, tileSize, tileSize);
         }
 
         public override void LoadContent(ContentManager content)
         {
-            throw new NotImplementedException();
+           
         }
 
         public override void Update(GameTime gameTime)

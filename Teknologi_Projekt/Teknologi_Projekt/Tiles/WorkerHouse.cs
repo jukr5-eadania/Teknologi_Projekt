@@ -9,20 +9,23 @@ using System.Threading.Tasks;
 
 namespace Teknologi_Projekt.Tiles
 {
+   
     internal class WorkerHouse : Tile
-    {
+    {        
         public WorkerHouse(Texture2D textureAtlas, int x, int y) : base(textureAtlas, x, y)
         {
+            source = new(2 * tileSize, 1 * tileSize, tileSize, tileSize);
         }
 
         public override void LoadContent(ContentManager content)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            
         }
+
     }
 }
