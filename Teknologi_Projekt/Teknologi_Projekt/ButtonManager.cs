@@ -42,7 +42,7 @@ namespace Teknologi_Projekt
 
         public void BuildMine(object sender, EventArgs e)
         {
-            if (UIManager.stone >= 20)
+            if (UIManager.brick >= 20)
             {
                 GameWorld.BuildMine();
             }

@@ -39,7 +39,7 @@ namespace Teknologi_Projekt
         public override void Update(GameTime gameTime)
         {
             float deltaTime = (float)GameWorld.publicGameTime.ElapsedGameTime.TotalSeconds;
-            position += (dir * 10) * deltaTime;
+            position += (dir * 1) * deltaTime;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
