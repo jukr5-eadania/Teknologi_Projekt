@@ -12,11 +12,14 @@ namespace Teknologi_Projekt
         private Color color;
         private Rectangle rect;
         private MouseState lastMouseState;
+        private string text;
+        private Vector2 origin;
 
-        public Button(Texture2D s, Vector2 p)
+        public Button(Texture2D s, Vector2 p, string t)
         {
             sprite = s;
             position = p;
+            text = t;
 
             rect = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
         }
@@ -52,6 +55,8 @@ namespace Teknologi_Projekt
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, position, color);
+            origin = UIManager.UIFont.MeasureString(text);
+            spriteBatch.DrawString(UIManager.UIFont, text, new(position.X + sprite.Width / 2, position.Y + sprite.Height / 2), color, 0, origin / 2, 2, SpriteEffects.None, 0);
         }
     }
 }

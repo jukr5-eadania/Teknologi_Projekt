@@ -211,8 +211,21 @@ namespace Teknologi_Projekt
             if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Grasslands)
             {
                 tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new WorkerHouse(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
-                UIManager.workerCounter += 2;
+                UIManager.workerCounter += 1;
                 UIManager.brick -= 10;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public static void BuildStoneMill()
+        {
+            if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Grasslands)
+            {
+                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Stonemill(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+                UIManager.brick -= 15;
             }
             else
             {

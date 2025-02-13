@@ -20,9 +20,9 @@ namespace Teknologi_Projekt
             UIFont = content.Load<SpriteFont>("UIFont");
         }
 
-        public Button AddButton(Vector2 position)
+        public Button AddButton(Vector2 position, string text)
         {
-            Button b = new Button(buttonTexture, position);
+            Button b = new Button(buttonTexture, position, text);
             buttons.Add(b);
 
             return b;
