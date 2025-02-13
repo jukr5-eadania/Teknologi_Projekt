@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Linq;
 using System.Collections.Generic;
 using Teknologi_Projekt.Tiles;
 
@@ -21,7 +19,7 @@ namespace Teknologi_Projekt
 
         static public GameTime publicGameTime;
 
- 
+
         private UIManager UIM = new();
         private ButtonManager BM;
 
@@ -29,7 +27,7 @@ namespace Teknologi_Projekt
         public static int Height { get; set; }
         public static int Width { get; set; }
 
-        private Texture2D textureAtlas;
+        private static Texture2D textureAtlas;
         private Texture2D playerSprite;
 
         private Matrix translation;
@@ -102,19 +100,16 @@ namespace Teknologi_Projekt
             }
             foreach (Tile tile in tileArray)
             {
-                tile.Update(gameTime);                
+                tile.Update(gameTime);
             }
 
             UIM.Update(gameTime);
             base.Update(gameTime);
 
-            
+
             HandleInput(gameTime);
-
-
-
-
         }
+
         private void HandleInput(GameTime gameTime)
         {
             KeyboardState keyState = Keyboard.GetState();
@@ -188,7 +183,6 @@ namespace Teknologi_Projekt
             {
                 cursorPosition.X = 0;
             }
-
         }
 
         protected override void Draw(GameTime gameTime)
@@ -210,6 +204,33 @@ namespace Teknologi_Projekt
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public static void BuildHouse()
+        {
+            if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Grasslands)
+            {
+                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new WorkerHouse(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+                UIManager.workerCounter += 2;
+                UIManager.stone -= 10;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public static void BuildMine()
+        {
+            if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Mountain)
+            {
+                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Mine(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+                UIManager.stone -= 20;
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

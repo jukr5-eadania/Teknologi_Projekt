@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Teknologi_Projekt.Tiles;
 
 namespace Teknologi_Projekt
@@ -16,9 +12,9 @@ namespace Teknologi_Projekt
             UIM = uim;
            
             UIM.AddButton(new(1000, 100)).OnClick += HireWorkerAction;
-            UIM.AddButton(new(1000, 300)).OnClick += FireWorkerAction;            
+            UIM.AddButton(new(1000, 300)).OnClick += FireWorkerAction;
             UIM.AddButton(new(1000, 500)).OnClick += BuildHouse;
-            UIM.AddButton(new(1000, 700)).OnClick += AssignTask;
+            UIM.AddButton(new(1000, 700)).OnClick += BuildMine;
         }
 
         public void HireWorkerAction(object sender, EventArgs e)
@@ -40,25 +36,16 @@ namespace Teknologi_Projekt
         {
             if (UIManager.brick >= 10)
             {
-                UIManager.workerCounter += 2;
-                UIManager.brick -= 10;
+                GameWorld.BuildHouse();
             }
         }
 
-        /// <summary>
-        /// A button that assigns a non-working worker to a job
-        /// Removes a wworker from the workerCounter
-        /// (Note: testing)
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void AssignTask(object sender, EventArgs e)
+        public void BuildMine(object sender, EventArgs e)
         {
-            if (UIManager.workerCounter >= 1)
+            if (UIManager.stone >= 20)
             {
-                UIManager.workerCounter--;
+                GameWorld.BuildMine();
             }
         }
-
     }
 }
