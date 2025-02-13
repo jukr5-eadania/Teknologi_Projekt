@@ -8,7 +8,7 @@ namespace Teknologi_Projekt.Tiles
     public abstract class Tile : GameObject
     {
         protected Texture2D textureAtlas;
-        private Rectangle destinationRectangle;
+        protected Rectangle destinationRectangle;
         public Vector2 pathfindingDest;
         protected Rectangle source;
         protected int tileSize = 128;

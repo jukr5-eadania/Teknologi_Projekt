@@ -22,8 +22,6 @@ namespace Teknologi_Projekt
 
         private UIManager UIM = new();
         private ButtonManager BM;
-        private Tiles.Stonemill SM;
-        private Mine M;
 
 
         public static int Height { get; set; }
@@ -73,15 +71,21 @@ namespace Teknologi_Projekt
                 }
             }
             tileArray[3, 3] = new Castle(textureAtlas, 3, 3);
-            tileArray[2, 0] = M = new Mine(textureAtlas, 2, 0);
-            tileArray[0, 4] = new Mountain(textureAtlas, 0, 4);
+            tileArray[2, 0] = new Mine(textureAtlas, 2, 0);
+            tileArray[0, 4] = new Mine(textureAtlas, 0, 4);
             tileArray[6, 2] = new Mountain(textureAtlas, 6, 2);
-            tileArray[1, 4] = SM = new Stonemill(textureAtlas, 1, 4, M);
+
+
+            tileArray[1, 4] = new Stonemill(textureAtlas, 1, 4);
+            tileArray[3, 4] = new WorkerHouse(textureAtlas, 3, 4); 
             gameObjects.Add(new Cursor(textureAtlas, 0, 0));
-            gameObjects.Add(new Worker(playerSprite));
+            for (int i = 0; i < 2; i++)
+            {
+                gameObjects.Add(new Worker(playerSprite));
+            }
 
             UIM.LoadContent(Content);
-            BM = new ButtonManager(UIM, SM);
+            BM = new ButtonManager(UIM);
         }
 
         protected override void Update(GameTime gameTime)
@@ -121,6 +125,24 @@ namespace Teknologi_Projekt
                 scale += (float)0.001;
                 translation = Matrix.CreateScale(scale);
             }
+
+            if (keyState.IsKeyDown(Keys.Right))
+            {
+                if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Castle)
+                {
+                    return;
+                }
+                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Mine(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+            }
+            if (keyState.IsKeyDown(Keys.Left))
+            {
+                if (tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] is Castle)
+                {
+                    return;
+                }
+                tileArray[(int)cursorPosition.X, (int)cursorPosition.Y] = new Grasslands(textureAtlas, (int)cursorPosition.X, (int)cursorPosition.Y);
+            }
+
             if (cursorCooldown < 150)
             {
                 return;
