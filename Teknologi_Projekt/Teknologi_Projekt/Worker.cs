@@ -27,7 +27,7 @@ namespace Teknologi_Projekt
         public Worker(Texture2D sprite)
         {
             this.sprite = sprite;
-            position = new Vector2(448, 448);
+            position = new((GameWorld.cursorPosition.X * 128) + 64, (GameWorld.cursorPosition.Y * 128) + 64);
             Thread workerLogic = new(WorkerLoop);
             workerLogic.IsBackground = true;
             workerLogic.Start();

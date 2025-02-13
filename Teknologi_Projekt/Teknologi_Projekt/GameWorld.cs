@@ -15,7 +15,7 @@ namespace Teknologi_Projekt
         public static List<GameObject> gameObjects = new();
         public static Tile[,] tileArray = new Tile[7, 7];
         public float scale = 1f;
-        public static Vector2 cursorPosition = new(2, 0);
+        public static Vector2 cursorPosition = new(3, 3);
         private float cursorCooldown;
 
         static public GameTime publicGameTime;
@@ -23,7 +23,6 @@ namespace Teknologi_Projekt
 
 
         private UIManager UIM = new();
-        private ButtonManager BM;
 
 
         public static int Height { get; set; }
@@ -89,7 +88,7 @@ namespace Teknologi_Projekt
             }
 
             UIM.LoadContent(Content);
-            BM = new ButtonManager(UIM);
+            new ButtonManager(UIM);
         }
 
         protected override void Update(GameTime gameTime)

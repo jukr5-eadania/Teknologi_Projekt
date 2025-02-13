@@ -37,7 +37,7 @@ namespace Teknologi_Projekt.Tiles
         public override void Update(GameTime gameTime)
         {
             cooldown += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (cooldown > 5000)
+            if (cooldown > 1000)
             {
                 stones++;
                 cooldown = 0;
