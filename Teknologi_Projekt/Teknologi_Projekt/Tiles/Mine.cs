@@ -76,7 +76,6 @@ namespace Teknologi_Projekt.Tiles
                 Thread.Sleep(1000);
                 workerCapacity.Release();
             }
-y
         }
     }
 }
